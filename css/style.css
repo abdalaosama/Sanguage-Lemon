@@ -70,3 +70,13 @@ select{
     background-color: #303030;
     color: white;
 }
+#credits{
+    color: white;
+    position: absolute;
+    bottom: 2px;
+    left: 3px;
+}
+#credits a{
+    text-decoration: none;
+
+}
