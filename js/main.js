@@ -11,48 +11,52 @@ function Lamoon(scentence) {
   let result = [];
 
   for (let i = 0; i < words.length; i++) {
-    if (isValid(words[i])) {
-      try {
-        if (words[i].substr(0, 2) == "ال") {
-          words[i] = words[i].substr(2);
-          let word = randomWord(words[i].charAt(0));
-          changed = words[i].split("");
-          if(changed[0] == "س"){
-            word = randomWord("")
-            changed[0] = word.charAt(0)
-            result.push("ال" + changed.join(""));
-            temp = word.split('')
-            temp[0] = "س"
-            result.push(temp.join(""));
-            continue
-          }
-          changed[0] = DefaultReplacmentLetter;
+    if (!isValid(words[i])) {
+      words[i] = words[i].replace(/[^ء-ي]?(\n)?/g,"")
+    } 
+    try {
+      if (words[i].substr(0, 2) == "ال") {
+        // it starts with al
+        words[i] = words[i].substr(2);
+        let word = randomWord(words[i].charAt(0));
+        changed = words[i].split("");
+        if(changed[0] == "س"){
+          //it starts with als
+          word = randomWord("")
+          changed[0] = word.charAt(0)
           result.push("ال" + changed.join(""));
-          result.push(word);
-          continue
-        } else {
-          let word = randomWord(words[i].charAt(0));
-          changed = words[i].split("");
-          if(changed[0] == "س"){
-            word = randomWord("")
-            changed[0] = word.charAt(0)
-            result.push(changed.join(""));
-            temp = word.split('')
-            temp[0] = "س"
-            result.push(temp.join(""));
-            continue
-          }
-          changed[0] = DefaultReplacmentLetter;
-          result.push(changed.join(""));
-          result.push(word);
+          temp = word.split('')
+          temp[0] = "س"
+          result.push(temp.join(""));
           continue
         }
-      } catch (error) {
-        alert(" حصل خطأ, رجاء مراجعه المدخلات");
+        changed[0] = DefaultReplacmentLetter;
+        result.push("ال" + changed.join(""));
+        result.push(word);
+        continue
+      } else {
+        //it doesn't have al
+        let word = randomWord(words[i].charAt(0));
+        changed = words[i].split("");
+        if(changed[0] == "س"){
+          //it starts with s
+          word = randomWord("")
+          changed[0] = word.charAt(0)
+          result.push(changed.join(""));
+          temp = word.split('')
+          temp[0] = "س"
+          result.push(temp.join(""));
+          continue
+        }
+        changed[0] = DefaultReplacmentLetter;
+        result.push(changed.join(""));
+        result.push(word);
+        continue
       }
-    } else {
-      result.push(words[i]);
+    } catch (error) {
+      alert(" حصل خطأ, رجاء مراجعه المدخلات");
     }
+  
   }
   return result.join(" ");
 }
@@ -116,11 +120,11 @@ function AlertError(Word) {
 }
 document.querySelector("select").addEventListener("change", function (e) {
   Mode = this.value;
-  if (Mode == 1) {
+  if (Mode == "1") {
     document.getElementById("firstField").innerHTML = "عربي";
-    document.getElementById("secondField").innerHTML = "سغه لمون";
+    document.getElementById("secondField").innerHTML = "سغة لمون";
   } else {
-    document.getElementById("firstField").innerHTML = "سغه لمون";
+    document.getElementById("firstField").innerHTML = "سغة لمون";
     document.getElementById("secondField").innerHTML = "عربي";
   }
 });
