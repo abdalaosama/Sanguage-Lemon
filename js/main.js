@@ -67,7 +67,7 @@ function Lamoonifiy(scentence){
   words = scentence.split(delimeter) // Split the string into managebale parts
   result = []
   for(let i = 0;i <words.length;i++){
-    if(/\s/g.test(words[i]) || words[i] == ""){
+    if(/\s/g.test(words[i]) || words[i] == ""){//Removing The spaces and Empty Strings
       words.splice(i,1)
       i--
     }
@@ -123,11 +123,26 @@ function randomWord(Letter, word) {
     }
 }
 
-function unLamoonify(scentence) {
-    // This Function SHOULD Translate Sanguage Lemon Back to Arabic , I am writting This so Late I need to sleep :(
-  let words = scentence.split(" ");
-  let result = [];
+function unLamoonify(scentence){    // This Function SHOULD Translate Sanguage Lemon Back to Arabic , I am writting This so Late I need to sleep :(
+  delimeter = /([!@#$%^&*(),.?":{}|<>\s])/g
+  scentence = scentence.replace(/([A-z]|\n|\s{2})/g,"").replace(/([A-z]|\n|\s{2})/g,"")// remove all the extra spaces or the english letters 
+  words = scentence.split(delimeter) // Split the string into managebale parts
+  result = []
+  for(let i = 0;i <words.length;i++){
+    if(/\s/g.test(words[i]) || words[i] == ""){//Removing The spaces and Empty Strings
+      words.splice(i,1)
+      i--
+    }
+  }
   for (let i = 0; i < words.length; i = i + 2) {
+
+    if(/([!@#$%^&*(),.?":{}|<>\s])/g.test(words[i])){
+      result.push(words[i])
+      words.splice(i,1)
+      i -= 2
+      continue
+    }
+    
     if (words[i].substr(0, 2) == "ال") {
       words[i] = words[i].substr(2);
       let word = words[i].split("");
@@ -139,8 +154,11 @@ function unLamoonify(scentence) {
       result.push(word.join(""));
     }
   }
-  return result.join(" ");
+  
+  return result.join(' ')
+
 }
+
 
 function isValid(Word) {
   // returns True if the word is valid and Lammonable :)
@@ -163,7 +181,7 @@ document.getElementById("convertBtn").addEventListener("click", function (e) {
   if (Mode == 1) {
     document.getElementById("out").innerHTML = Lamoonifiy(text);
   } else {
-    document.getElementById("out").innerHTML = unLamoonify(text);
+    document.getElementById("out").innerHTML = unLamoonify1(text);
   }
 });
 function AlertError(Word) {
@@ -180,3 +198,12 @@ document.querySelector("select").addEventListener("change", function (e) {
     document.getElementById("secondField").innerHTML = "عربي";
   }
 });
+
+document.getElementById('execCopy').addEventListener('click', execCopy);
+
+function execCopy() {
+  document.getElementById("out").select();
+  document.execCommand("copy");
+  alert("تم النسخ")
+}
+

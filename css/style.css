@@ -71,9 +71,18 @@ h5{
     border:none;
     margin: 10px;
     border-radius: 5px;
-    box-shadow: 5px 5px 5px 1px black;
+    box-shadow: 2px 2px 5px 1px black;
     cursor: pointer;
+    transition: 0.1s ease;
+    outline: none;
 }
+
+#convertBtn:hover{
+    box-shadow: 2px 2px 5px 1px black inset;
+    background-color: #06acd1;
+    
+}
+
 
 select{
     width: 50%;
@@ -91,4 +100,21 @@ select{
 #credits a{
     text-decoration: none;
 
+}
+#execCopy{
+    width: 70%;
+    height: 40px;
+    font-size: 20px;
+    border: none;
+    border-radius: 5px;
+    color: white;
+    background-color: #646464;
+    cursor: pointer;   
+    transition: 0.1s ease;
+    outline: none;
+    box-shadow: 2px 2px 4px black;
+}
+#execCopy:hover{
+    background-color: #303030;
+    box-shadow: 2px 2px 4px black inset;
 }
