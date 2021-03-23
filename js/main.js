@@ -4,7 +4,7 @@
 const DefaultReplacmentLetter = "س"; // this is the letter to replace the first letter with
 var Mode = 1; // 1 means arabic to sanguagelemon, 2 is the reverse
 
-function Lamoon(scentence) {
+function Lamoon1(scentence) {
   // Converts The { scentence } to Sanguage Lemon
   // The Code ahead is Pretty Messed Up, I Didn't Think About it too much :), If you are senstive Please Leave This is not for the faint of hearts    
   let words = scentence.split(" ");
@@ -61,7 +61,59 @@ function Lamoon(scentence) {
   return result.join(" ");
 }
 
-function randomWord(Letter) {
+function Lamoonifiy(scentence){
+  delimeter = /([!@#$%^&*(),.?":{}|<>\s])/g
+  scentence = scentence.replace(/([A-z]|\n|\s{2})/g,"").replace(/([A-z]|\n|\s{2})/g,"")// remove all the extra spaces or the english letters 
+  words = scentence.split(delimeter) // Split the string into managebale parts
+  result = []
+  for(let i = 0;i <words.length;i++){
+    if(/\s/g.test(words[i]) || words[i] == ""){
+      words.splice(i,1)
+      i--
+    }
+  }
+  for(let i = 0;i <words.length;i++){
+    result.push(Lamoon(words[i]))
+  }
+  return result.join(' ')
+}
+function Lamoon(word){ // lamoons one word only
+
+  alFlag = false
+  if(word == "و" ||/([!@#$%^&*(),.?":{}|<>\s])/g.test(word) ){ // if it is waw or any from the delemeters then it will return it untouched
+    return word
+  }
+  if(word.substr(0, 2) == "ال"){
+   word = word.substr(2)
+   alFlag = true
+  }
+  
+  if(word.charAt(0) == "س"){ // Supporting the s case
+    
+    RandomWord = randomWord("")
+    RandomLetter = RandomWord[0]
+    
+    NewRandomWord = RandomWord.split("")
+    NewRandomWord[0] = "س"
+    NewRandomWord = NewRandomWord.join("")
+
+    word = word.split("")
+    word[0] = RandomLetter
+    word = word.join("")
+
+    return (alFlag?"ال":"")+word +" "+NewRandomWord
+  }
+
+  RandomWord = randomWord(word[0])
+
+  word = word.split("")
+  word[0] = "س"
+  word = word.join("")
+
+  return (alFlag?"ال":"")+word +" "+RandomWord
+}
+
+function randomWord(Letter, word) {
   // Returns a random Word Starting With the {Letter}
     if(Letter == ""){
         RandomLetter =  Words[Object.getOwnPropertyNames(Words)[~~(Math.random() * Object.getOwnPropertyNames(Words).length)]]
@@ -71,7 +123,7 @@ function randomWord(Letter) {
     }
 }
 
-function unLamoon(scentence) {
+function unLamoonify(scentence) {
     // This Function SHOULD Translate Sanguage Lemon Back to Arabic , I am writting This so Late I need to sleep :(
   let words = scentence.split(" ");
   let result = [];
@@ -109,9 +161,9 @@ document.getElementById("convertBtn").addEventListener("click", function (e) {
   }
 
   if (Mode == 1) {
-    document.getElementById("out").innerHTML = Lamoon(text);
+    document.getElementById("out").innerHTML = Lamoonifiy(text);
   } else {
-    document.getElementById("out").innerHTML = unLamoon(text);
+    document.getElementById("out").innerHTML = unLamoonify(text);
   }
 });
 function AlertError(Word) {
