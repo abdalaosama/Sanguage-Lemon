@@ -181,7 +181,7 @@ document.getElementById("convertBtn").addEventListener("click", function (e) {
   if (Mode == 1) {
     document.getElementById("out").innerHTML = Lamoonifiy(text);
   } else {
-    document.getElementById("out").innerHTML = unLamoonify1(text);
+    document.getElementById("out").innerHTML = unLamoonify(text);
   }
 });
 function AlertError(Word) {
