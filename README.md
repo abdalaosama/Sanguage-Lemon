@@ -12,7 +12,7 @@ This Web app Will help you generate and Translate Sanguage Lemon
 
 ## usage
 
-this is a static web page wrrriten in plain html, css and js
+this is a static web page written in plain html, css and js
 just clone to your local machine by running
 
 `git clone https://github.com/abdalaosama/Sanguage-Lemon.git`
